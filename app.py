@@ -31,7 +31,7 @@ class users(db.Model):
 
 @app.route("/home")
 def home():
-    return "<p>This is the home page</p>"
+    return render_template("home.html")
 
 # @app.route("/string/<string:value>)")
 # def string(value):

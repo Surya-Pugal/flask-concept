@@ -71,8 +71,10 @@ def home():
 # def user(usr):
 #     return f"<h1>{usr}</h1>" 
 
-
-
+@app.route("/view")
+def view():
+    return render_template("view.html", values=users.query.all())
+    
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
@@ -81,6 +83,16 @@ def login():
         session["user"] = user
         
         found_user = users.query.filter_by(name=user).first()
+        
+        # more than one result return by this query.. use this code
+        # found_user = users.query.filter_by(name=user).all()
+        # If you want to delete one entry..use this code
+        # found_user = users.query.filter_by(name=user).delete()
+        # for deleting multiple objects
+        # for user in found_user:
+        #     user.delete()
+        
+        
         if found_user:
             session["email"] = found_user.email
         else:
